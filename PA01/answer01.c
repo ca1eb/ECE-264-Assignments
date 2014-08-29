@@ -66,7 +66,7 @@ int arrayIndexRFind(int needle, const int * haystack, int len)
 {
   //LOCAL DECLARATIONS
   int counter;
-  int index;    
+  int index = 0;    
 
   //EXECUTABLE STATEMENTS
   for (counter = 0; counter < len; counter++)
@@ -81,11 +81,19 @@ int arrayIndexRFind(int needle, const int * haystack, int len)
     {
       index = -1;
     }
+  if (index > -1)
+    {
+      index -= 1;
+    }
 
-  return index - 1;
+  return index;
 }
 
 int arrayFindSmallest(int * array, int len)
 {
+  //LOCAL DECLARATIONS
+
+  //EXECUTABLE STATEMENTS
+
   return 0;
 }
