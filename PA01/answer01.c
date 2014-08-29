@@ -37,8 +37,8 @@ int arrayCountNegative(int * array, int len)
 int arrayIsIncreasing(int * array, int len)
 {    
   //LOCAL DECLARATIONS
-  int counter; 
-  int increase = 0;
+  int counter;       //loop control variable  
+  int increase = 0;  //variable to show whether true or false
 
   //EXECUTABLE STATEMENTS 
   if (len < 2)
@@ -65,8 +65,8 @@ int arrayIsIncreasing(int * array, int len)
 int arrayIndexRFind(int needle, const int * haystack, int len)
 {
   //LOCAL DECLARATIONS
-  int counter;
-  int index = 0;    
+  int counter;      //loop control variable
+  int index = 0;    //index of the needle
 
   //EXECUTABLE STATEMENTS
   for (counter = 0; counter < len; counter++)
@@ -92,8 +92,25 @@ int arrayIndexRFind(int needle, const int * haystack, int len)
 int arrayFindSmallest(int * array, int len)
 {
   //LOCAL DECLARATIONS
+  int counter;               //loop control variable
+  int index;                 //index of the minimum
+  int minimum = array[0];    //setting minimum
+  int current = 0;           //the current array element  
 
   //EXECUTABLE STATEMENTS
+  for (counter = 1; counter < len; counter++)
+    {
+      array[counter] = current;
+	if (current < minimum)
+	  {
+	    minimum = current;
+	    index = counter;
+	  }
+    }
+  if (minimum == array[0])
+    {
+      index = 0;
+    }
 
-  return 0;
+  return index;
 }
