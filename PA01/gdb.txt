@@ -1,90 +1,14 @@
 Load new symbol table from "/home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01"? (y or n) Reading symbols from /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01...done.
-Breakpoint 1 at 0x40094d: file answer01.c, line 22.
+Breakpoint 1 at 0x4008f1: file pa01.c, line 95.
 Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
 
-Program exited normally.
-Missing separate debuginfos, use: debuginfo-install glibc-2.12-1.132.el6_5.3.x86_64
-The program is not being run.
-Breakpoint 2 at 0x400980: file answer01.c, line 34.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Program exited normally.
-Breakpoint 3 at 0x40090f: file answer01.c, line 5.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Program exited normally.
-Breakpoint 4 at 0x40065c: file pa01.c, line 22.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Program exited normally.
-The program is not being run.
-Breakpoint 5 at 0x4008fb: file pa01.c, line 98.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Breakpoint 5, main (argc=1, argv=0x7fffffffe468) at pa01.c:103
+Breakpoint 1, main (argc=1, argv=0x7fffffffe4e8) at pa01.c:97
 warning: Source file is more recent than executable.
-103	    return EXIT_SUCCESS;
-Ambiguous command "ste": step, stepi, stepping.
-104	}
-0x000000361cc1ed1d in __libc_start_main () from /lib64/libc.so.6
-Single stepping until exit from function __libc_start_main,
-which has no line number information.
-
-Program exited normally.
-No symbol "argc" in current context.
-Breakpoint 6 at 0x4008d6: file pa01.c, line 89.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Breakpoint 5, main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-103	    return EXIT_SUCCESS;
-104	}
-0x000000361cc1ed1d in __libc_start_main () from /lib64/libc.so.6
-No symbol "argc" in current context.
-Single stepping until exit from function __libc_start_main,
-which has no line number information.
-
-Program exited normally.
-Breakpoint 7 at 0x40073c: file pa01.c, line 45.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Breakpoint 5, main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-103	    return EXIT_SUCCESS;
-104	}
-0x000000361cc1ed1d in __libc_start_main () from /lib64/libc.so.6
-The history is empty.
+97	    printf("Welcome to ECE264, we are working on PA01.\n\n");
+Missing separate debuginfos, use: debuginfo-install glibc-2.12-1.132.el6_5.3.x86_64
+$1 = 1
+100	    test_00_arraySum();
+101	    test_01_arrayCountNegative();
 Continuing.
 
 Program exited normally.
-Breakpoint 8 at 0x4006e2: file pa01.c, line 35.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Breakpoint 5, main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-103	    return EXIT_SUCCESS;
-104	}
-0x000000361cc1ed1d in __libc_start_main () from /lib64/libc.so.6
-The history is empty.
-Single stepping until exit from function __libc_start_main,
-which has no line number information.
-
-Program exited normally.
-The program is not being run.
-The program is not being run.
-Breakpoint 9 at 0x400606: file pa01.c, line 15.
-Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA01/pa01 
-
-Breakpoint 5, main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-103	    return EXIT_SUCCESS;
-#0  main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-Note: breakpoint 5 also set at pc 0x4008fb.
-Breakpoint 10 at 0x4008fb: file pa01.c, line 103.
-#0  main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-#0  main (argc=1, argv=0x7fffffffe468) at pa01.c:103
-104	}
-The history is empty.
-The history is empty.
-The history is empty.
-A debugging session is active.
-
-	Inferior 1 [process 17914] will be killed.
-
-Quit anyway? (y or n) 
