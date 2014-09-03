@@ -39,20 +39,27 @@ int my_countchar(const char * str, char ch)
 char * my_strchr(const char * str, int ch)
 {
   //LOCAL DECLARATIONS
-  int *location;
-
-
+  int counter;
+  char *location;
+  int length = (int) my_strlen(str);  
+  
   //EXECUTABLE STATEMENTS
-  do 
+  if (ch == 0)
     {
-      str++;
-      if (*str == ch)
+      *location = ' ';
+    }
+  else 
+    {
+      for (counter = 0; counter < length; counter++)
 	{
-	 location = *str;
+	  if (str[counter] == (char) ch)
+	    {
+	      *location = (char) str[counter];
+	    }
 	}
-    } while (*str != '\0');
+    }
       
-  return *location;
+  return location;
 }
 
 char * my_strrchr(const char * str, int ch)

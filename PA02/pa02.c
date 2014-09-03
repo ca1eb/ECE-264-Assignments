@@ -33,14 +33,14 @@ int main(int argc, char * * argv)
    // printf("my_strlen(\"%s\") = %d\n", s3, (int) my_strlen(s3));
 
     // -- my_countchar, should be: 3, 0, and 2
-    printf("my_countchar(\"%s\", 'l') = %d\n", s1, (int) my_countchar(s1, 'l'));
-    printf("my_countchar(\"%s\", 'o') = %d\n", s2, (int) my_countchar(s2, 'o'));
-    printf("my_countchar(\"%s\", 'o') = %d\n", s3, (int) my_countchar(s3, 'o'));
+    //printf("my_countchar(\"%s\", 'l') = %d\n", s1, (int) my_countchar(s1, 'l'));
+    //printf("my_countchar(\"%s\", 'o') = %d\n", s2, (int) my_countchar(s2, 'o'));
+    //printf("my_countchar(\"%s\", 'o') = %d\n", s3, (int) my_countchar(s3, 'o'));
 
     // -- my_strchr, should be: "llo World!", "(null)", and ""
-   // printf("my_strchr(\"%s\", 'l') = %s\n", s1, my_strchr(s1, 'l'));
-   // printf("my_strchr(\"%s\", 'o') = %s\n", s2, my_strchr(s2, 'o'));
-   // printf("my_strchr(\"%s\", '\\0') = %s\n", s3, my_strchr(s3, '\0'));
+    printf("my_strchr(\"%s\", 'l') = %s\n", s1, my_strchr(s1, 'l'));
+    printf("my_strchr(\"%s\", 'o') = %s\n", s2, my_strchr(s2, 'o'));
+    printf("my_strchr(\"%s\", '\\0') = %s\n", s3, my_strchr(s3, '\0'));
 
     // -- my_strstr, should be: "World!", "Hello World!", "(null)"
    // printf("my_strstr(\"%s\", \"World\") = %s\n", s1, my_strstr(s1, "World"));
