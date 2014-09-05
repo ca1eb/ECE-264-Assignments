@@ -40,59 +40,117 @@ char * my_strchr(const char * str, int ch)
 {
   //LOCAL DECLARATIONS
   int counter;
-  char *location;
-  int length = (int) my_strlen(str);  
+  char * location;
+  int length = (int) my_strlen(str);
   
   //EXECUTABLE STATEMENTS
   if (ch == 0)
     {
-      *location = ' ';
+      location = "''";      
     }
   else 
     {
-      for (counter = 0; counter < length; counter++)
+      for (counter = 0; counter <= length; counter++)
 	{
 	  if (str[counter] == (char) ch)
 	    {
-	      *location = (char) str[counter];
+	      return (char *) &str[counter];
 	    }
+	  else 
+	    {
+	      location = "(null)";
+            }	
 	}
     }
-      
-  return location;
+  
+  return location;   
 }
 
 char * my_strrchr(const char * str, int ch)
-{
+{ 
   //LOCAL DECLARATIONS
+  int counter;
+  char * location;
+  int length = (int) my_strlen(str);
 
   //EXECUTABLE STATEMENTS
-  int location = 0;
+  if (ch == 0)
+    {
+      location = "''";
+    }
+  else
+    {
+      for (counter = length; counter >= 0 ; counter--)
+	{
+          if (str[counter] == (char) ch)
+            {
+              return (char *) &str[counter];
+            }
+          else
+            {
+              location = "(null)";
+            }
+        }
+    }
 
   return location;
 }
 
 char * my_strstr(const char * haystack, const char * needle)
 {
-  //LOCAL DECLARATIONS                                                                                                                   
-int location = 0;
- 
-
-  //EXECUTABLE STATEMENTS                                                                                                                 
-
-  return location;
-}
+  //LOCAL DECLARATIONS
+  int counter;
+  int needCount = 0;
+  char * find = "(null)";
+  int needLen = (int) my_strlen(needle);
+  int hayLen = (int) my_strlen(haystack);
+  int potential;
+  int sameLetters = 0;
   
-char * my_strcpy(char * dest, const char * src)
+  //EXECUTABLE STATEMENTS                                                                                                     
+  if (needLen == 0)
+    {
+      find = (char *) &haystack[0];
+    }
+  else 
+    {
+      for (counter = 0; counter < hayLen; counter++)
+    	{
+    	  if (haystack[counter] == needle[0])
+    	    {
+    	      potential = counter;
+    	      while (haystack[potential] == needle[needCount])
+		{
+		  potential++;
+		  needCount++;
+		  sameLetters++;
+		}
+	      if (sameLetters == needLen)
+		{
+		  return (char *) &haystack[counter];
+		}
+	    }
+        }
+    }
+
+  return find;
+}
+
+/*char * my_strcpy(char * dest, const char * src)
 {
-  //LOCAL DECLARATIONS                                                                                                                    
-  int location = 0;
+  //LOCAL DECLARATIONS                                                   
+  int srcLen = (int) my_strlen(src);
+  int counter;
 
-  //EXECUTABLE STATEMENTS                                                                                                                 
+  //EXECUTABLE STATEMENTS                                                           
+  for (counter = 0; counter < srcLen; counter++) 
+    {
+      dest[counter] = src[counter];
+    }
 
-  return location;
+  return dest;
 }
-  
+/*  
 char * my_strcat(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -121,4 +179,4 @@ int my_atoi(const char * str)
   //EXECUTABLE STATEMENTS                                                                                                                 
 
   return location;
-}
+}*/
