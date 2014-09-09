@@ -55,12 +55,14 @@ int main(int argc, char * * argv)
     //my_strcpy(buffer, s2);
     //printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s2, buffer);
     //my_strcpy(buffer, s3);
-    //printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s3, buffer);
+    //printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s2, buffer);
 
     // -- my_strcat. You will have to do this yourself... just
     // look at my_strcpy for an example, and go from there.
 
-    // -- my_isspace. You will have to do this for yourself.
+    printf("my_isspace = %d\n", my_isspace('\f'));
+    printf("my_isspace = %d\n", my_isspace('a'));
+    printf("my_isspace = %d\n", my_isspace(' '));
 
     // -- my_atoi. You will have to do this for yourself.
 

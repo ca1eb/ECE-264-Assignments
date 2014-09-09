@@ -135,8 +135,8 @@ char * my_strstr(const char * haystack, const char * needle)
 
   return find;
 }
-
-/*char * my_strcpy(char * dest, const char * src)
+/*
+char * my_strcpy(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                   
   int srcLen = (int) my_strlen(src);
@@ -150,7 +150,7 @@ char * my_strstr(const char * haystack, const char * needle)
 
   return dest;
 }
-/*  
+  
 char * my_strcat(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -160,15 +160,23 @@ char * my_strcat(char * dest, const char * src)
 
   return location;
 }
-  
+*/  
 int my_isspace(int ch)
 {
   //LOCAL DECLARATIONS                                                                                                                    
-  int location = 0;
+  int white;
 
   //EXECUTABLE STATEMENTS                                                                                                                 
-
-  return location;
+  if ((ch >= 9 && ch <= 13) || ch == 32)
+    {
+      white = 1;
+    }
+  else 
+    {
+      white = 0;
+    }
+  
+  return white;
 }
   
 int my_atoi(const char * str)
@@ -179,4 +187,4 @@ int my_atoi(const char * str)
   //EXECUTABLE STATEMENTS                                                                                                                 
 
   return location;
-}*/
+}
