@@ -23,7 +23,7 @@ int main(int argc, char * * argv)
 	   "the TAs and your classmates for help.\n"
 	   "\n");
 
-    const char * s1 = "Hello World!";
+    const char * s1 = "This has 20 elements";
     const char * s2 = "";
     const char * s3 = "foo";
 
@@ -49,13 +49,13 @@ int main(int argc, char * * argv)
 
     // -- my_strcpy. For this function you need a buffer where you
     // copy the string to. 
-    //char buffer[BUFFER_LEN];
-    //my_strcpy(buffer, s1);
-    //printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s1, buffer);
-    //my_strcpy(buffer, s2);
-    //printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s2, buffer);
-    //my_strcpy(buffer, s3);
-    //printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s2, buffer);
+    char buffer[BUFFER_LEN];
+    my_strcpy(buffer, s1);
+    printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s1, buffer);
+    my_strcpy(buffer, s2);
+    printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s2, buffer);
+    my_strcpy(buffer, s3);
+    printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s2, buffer);
 
     // -- my_strcat. You will have to do this yourself... just
     // look at my_strcpy for an example, and go from there.
@@ -65,6 +65,10 @@ int main(int argc, char * * argv)
     printf("my_isspace = %d\n", my_isspace(' '));
 
     // -- my_atoi. You will have to do this for yourself.
+    //printf("my_isspace = %d\n", my_atoi("15th of March would be the ides."));
+    //printf("my_isspace = %d\n", my_atoi("15th of March would be the ides."));
+    //printf("my_isspace = %d\n", my_isspace('\f'));	
+
 
     return EXIT_SUCCESS;
 }

@@ -135,7 +135,7 @@ char * my_strstr(const char * haystack, const char * needle)
 
   return find;
 }
-/*
+
 char * my_strcpy(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                   
@@ -150,7 +150,7 @@ char * my_strcpy(char * dest, const char * src)
 
   return dest;
 }
-  
+/*  
 char * my_strcat(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -178,13 +178,33 @@ int my_isspace(int ch)
   
   return white;
 }
-  
+/*  
 int my_atoi(const char * str)
 {
-  //LOCAL DECLARATIONS                                                                                                                    
-  int location = 0;
+  //LOCAL DECLARATIONS                        
+  int length = (int) my_strlen(str);
+  int counter;
+  int ret = 0;
+  
+  //EXECUTABLE STATEMENTS                                                    
+  for (counter = 0; counter < length - 1; counter++)
+    {
+      //printf("%d\n", str[counter]);
+      if (my_isspace(str[counter]) == 1)
+	{
+	  *str++;
+	}  
+    }
+  
+  while (*str >= '0' && *str <= '9')
+    {
+      ret = *str;
+      printf("%d\n", ret);
+      ret *= 10;
+      ret += (*str - '0');
+      *str++;
+    }
 
-  //EXECUTABLE STATEMENTS                                                                                                                 
 
-  return location;
-}
+  return ret;
+}*/

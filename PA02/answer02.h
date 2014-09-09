@@ -117,7 +117,7 @@ int my_isspace(int ch);
 
 /**
  * Convert the initial portion of 'str' to an integer.
- *
+ *toi("15th of March would be the ides.")
  * Implement my_atoi(str) as follows:
  * (1) Increment str to skip all white-space characters as defined by 
  * my_isspace(...)
