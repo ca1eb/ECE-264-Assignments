@@ -7,7 +7,7 @@
 
 #include "answer02.h"
 
-#define BUFFER_LEN 1 //1024
+#define BUFFER_LEN 50
 
 int main(int argc, char * * argv)
 {

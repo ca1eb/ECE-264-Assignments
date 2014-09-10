@@ -39,61 +39,80 @@ int my_countchar(const char * str, char ch)
 char * my_strchr(const char * str, int ch)
 {
   //LOCAL DECLARATIONS
-  int counter;
-  char * location;
-  int length = (int) my_strlen(str);
+  //t counter;
+  //ar * location;
+  //t length = (int) my_strlen(str);
   
   //EXECUTABLE STATEMENTS
-  if (ch == 0)
+  // if (ch == 0)
+  // {
+  //  location = "''";      
+  //}
+  //se 
+  //
+  //for (counter = 0; counter <= length; counter++)
+  //	{
+  //	  if (str[counter] == (char) ch)
+  //	    {
+  //	      location =  (char *) &str[counter];
+  //	    }
+  //	  else 
+  //	    {
+  //	      location = "(null)";
+  //	      // }	
+  //	  //	}
+      //  }
+  while (*str != (char)ch)
     {
-      location = "''";      
-    }
-  else 
-    {
-      for (counter = 0; counter <= length; counter++)
+      if (!*str++)
 	{
-	  if (str[counter] == (char) ch)
-	    {
-	      location =  (char *) &str[counter];
-	    }
-	  else 
-	    {
-	      location = "(null)";
-            }	
+	  return 0;
 	}
-    }
+
+  return (char *)str;
+
   
-  return location;   
+  //return location;   
 }
 
 char * my_strrchr(const char * str, int ch)
 { 
   //LOCAL DECLARATIONS
-  int counter;
-  char * location;
-  int length = (int) my_strlen(str);
+  //int counter;
+  //char * location;/
+  //int length = (int) my_strlen(str);
 
   //EXECUTABLE STATEMENTS
-  if (ch == 0)
-    {
-      location = "''";
-    }
-  else
-    {
-      for (counter = length; counter >= 0 ; counter--)
-	{
-          if (str[counter] == (char) ch)
-            {
-              return (char *) &str[counter];
-            }
-          else
-            {
-              location = "(null)";
-            }
-        }
-    }
+  char* ret=0;
+  do {
+    if( *str == (char) ch)
+      {
+	ret=str;
+      }
+  } while (*str++);
 
-  return location;
+  return ret;
+
+//f (ch == 0)
+  //{
+  //  location = "''";
+  // }
+  //else
+  // {
+  /// for (counter = length; counter >= 0 ; counter--)
+  //	{
+  //    if (str[counter] == (char) ch)
+  //      {
+  //        return (char *) &str[counter];
+  //      }
+  //    else
+  //      {
+  //        location = "(null)";
+  //      }
+  //  }
+  //}
+
+  //turn location;
 }
 
 char * my_strstr(const char * haystack, const char * needle)
@@ -139,33 +158,18 @@ char * my_strstr(const char * haystack, const char * needle)
 char * my_strcpy(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                   
-  int i;
-  //int counter = 0;
-  //int length = 0;
-  //EXECUTABLE STATEMENTS                                                           
-  for (i=0; src[i] != '\0'; ++i)
-    dest[i] = src[i];
-  dest[i] = '\0';
-  return dest;
-  // while (src[counter] != '\0')
-  // {
-  //    length++;
-  //    counter++;
-  //  }
-  
-  //while (index < length + 1)
-  //  {
-  //    dest[index] = src[index];
-  //    index++;
-  //  }
-  //for (counter = 0; counter < srcLen; counter++) 
-  //  {
-  //    dest[counter] = src[counter];
-  //  }
+  int index;
 
-  //return (&dest[0]);
-}
+  //EXECUTABLE STATEMENTS                                              
+  for (index = 0; src[index] != '\0'; ++index)
+    {
+      dest[index] = src[index];
+    }
+  dest[index] = '\0';
   
+  return dest;
+}
+/*  
 char * my_strcat(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -175,7 +179,7 @@ char * my_strcat(char * dest, const char * src)
 
   return location;
 }
-  
+  */
 int my_isspace(int ch)
 {
   //LOCAL DECLARATIONS                                                                                                                    
