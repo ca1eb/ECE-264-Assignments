@@ -26,11 +26,11 @@ int my_countchar(const char * str, char ch)
   //EXECUTABLE STATEMENTS
   while (*str != '\0')
     {
-      str++;
       if (*str == ch)
 	{
 	  myChar++;
 	}
+      str++;
     }
 
   return myChar;
@@ -54,7 +54,7 @@ char * my_strchr(const char * str, int ch)
 	{
 	  if (str[counter] == (char) ch)
 	    {
-	      return (char *) &str[counter];
+	      location =  (char *) &str[counter];
 	    }
 	  else 
 	    {
@@ -139,18 +139,33 @@ char * my_strstr(const char * haystack, const char * needle)
 char * my_strcpy(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                   
-  int srcLen = (int) my_strlen(src);
-  int counter;
-
+  int i;
+  //int counter = 0;
+  //int length = 0;
   //EXECUTABLE STATEMENTS                                                           
-  for (counter = 0; counter < srcLen; counter++) 
-    {
-      dest[counter] = src[counter];
-    }
-
+  for (i=0; src[i] != '\0'; ++i)
+    dest[i] = src[i];
+  dest[i] = '\0';
   return dest;
+  // while (src[counter] != '\0')
+  // {
+  //    length++;
+  //    counter++;
+  //  }
+  
+  //while (index < length + 1)
+  //  {
+  //    dest[index] = src[index];
+  //    index++;
+  //  }
+  //for (counter = 0; counter < srcLen; counter++) 
+  //  {
+  //    dest[counter] = src[counter];
+  //  }
+
+  //return (&dest[0]);
 }
-/*  
+  
 char * my_strcat(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -160,7 +175,7 @@ char * my_strcat(char * dest, const char * src)
 
   return location;
 }
-*/  
+  
 int my_isspace(int ch)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -178,7 +193,7 @@ int my_isspace(int ch)
   
   return white;
 }
-/*  
+  
 int my_atoi(const char * str)
 {
   //LOCAL DECLARATIONS                        
@@ -192,7 +207,7 @@ int my_atoi(const char * str)
       //printf("%d\n", str[counter]);
       if (my_isspace(str[counter]) == 1)
 	{
-	  *str++;
+	  str++;
 	}  
     }
   
@@ -202,9 +217,10 @@ int my_atoi(const char * str)
       printf("%d\n", ret);
       ret *= 10;
       ret += (*str - '0');
-      *str++;
+      str++;
     }
 
 
   return ret;
-}*/
+}
+

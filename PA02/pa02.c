@@ -48,7 +48,7 @@ int main(int argc, char * * argv)
     printf("my_strstr(\"%s\", \"hello\") = %s\n", s1, my_strstr(s1, "hello"));
 
     // -- my_strcpy. For this function you need a buffer where you
-    // copy the string to. 
+    //copy the string to. 
     char buffer[BUFFER_LEN];
     my_strcpy(buffer, s1);
     printf("my_strcpy(buffer, \"%s\"), buffer = \"%s\"\n", s1, buffer);
