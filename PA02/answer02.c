@@ -39,147 +39,89 @@ int my_countchar(const char * str, char ch)
 char * my_strchr(const char * str, int ch)
 {
   //LOCAL DECLARATIONS
-  //t counter;
-  //ar * location;
-  //t length = (int) my_strlen(str);
-  
+
   //EXECUTABLE STATEMENTS
-  // if (ch == 0)
-  // {
-  //  location = "''";      
-  //}
-  //se 
-  //
-  //for (counter = 0; counter <= length; counter++)
-  //	{
-  //	  if (str[counter] == (char) ch)
-  //	    {
-  //	      location =  (char *) &str[counter];
-  //	    }
-  //	  else 
-  //	    {
-  //	      location = "(null)";
-  //	      // }	
-  //	  //	}
-      //  }
-  while (*str != (char)ch)
+  while (*str != '\0' && *str != (char) ch)
     {
-      if (!*str++)
-	{
-	  return 0;
-	}
-
-  return (char *)str;
-
+      str++;
+    }
   
-  //return location;   
+  if (*str == ch)
+    {
+      return (char *) str;
+    }
+  else 
+    {
+      return NULL;
+    }     
 }
 
 char * my_strrchr(const char * str, int ch)
 { 
   //LOCAL DECLARATIONS
-  //int counter;
-  //char * location;/
-  //int length = (int) my_strlen(str);
-
+  const char *final = NULL;
+  
   //EXECUTABLE STATEMENTS
-  char* ret=0;
-  do {
-    if( *str == (char) ch)
-      {
-	ret=str;
-      }
-  } while (*str++);
+  if (ch == '\0')
+    {
+      return my_strchr(str, ch);
+    }
 
-  return ret;
-
-//f (ch == 0)
-  //{
-  //  location = "''";
-  // }
-  //else
-  // {
-  /// for (counter = length; counter >= 0 ; counter--)
-  //	{
-  //    if (str[counter] == (char) ch)
-  //      {
-  //        return (char *) &str[counter];
-  //      }
-  //    else
-  //      {
-  //        location = "(null)";
-  //      }
-  //  }
-  //}
-
-  //turn location;
+  while ((str = my_strchr(str, ch)) != NULL) 
+    {
+      final = str;
+      str++;
+    }
+     
+  return (char *) final;
 }
 
 char * my_strstr(const char * haystack, const char * needle)
 {
   //LOCAL DECLARATIONS
-  int counter;
-  int needCount = 0;
-  char * find = "(null)";
-  int needLen = (int) my_strlen(needle);
-  int hayLen = (int) my_strlen(haystack);
-  int potential;
-  int sameLetters = 0;
-  
-  //EXECUTABLE STATEMENTS                                                                                                     
-  if (needLen == 0)
+  int character = (int) needle[0];
+
+  //EXECUTABLE STATEMENTS
+  if (character == 0)
     {
-      find = (char *) &haystack[0];
-    }
-  else 
-    {
-      for (counter = 0; counter < hayLen; counter++)
-    	{
-    	  if (haystack[counter] == needle[0])
-    	    {
-    	      potential = counter;
-    	      while (haystack[potential] == needle[needCount])
-		{
-		  potential++;
-		  needCount++;
-		  sameLetters++;
-		}
-	      if (sameLetters == needLen)
-		{
-		  return (char *) &haystack[counter];
-		}
-	    }
-        }
+      return (char *) haystack;
     }
 
-  return find;
+  return (my_strchr(haystack, character));
 }
 
 char * my_strcpy(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                   
-  int index;
+  int counter;
 
   //EXECUTABLE STATEMENTS                                              
-  for (index = 0; src[index] != '\0'; ++index)
+  for (counter = 0; src[counter] != '\0'; ++counter)
     {
-      dest[index] = src[index];
+      dest[counter] = src[counter];
     }
-  dest[index] = '\0';
+  
+  dest[counter] = '\0';
   
   return dest;
 }
-/*  
+  
 char * my_strcat(char * dest, const char * src)
 {
   //LOCAL DECLARATIONS                                                                                                                    
-  int location = 0;
-
-  //EXECUTABLE STATEMENTS                                                                                                                 
-
-  return location;
+  char * placehold = dest;
+  
+  //EXECUTABLE STATEMENTS
+  while (*placehold != '\0')
+    {
+      placehold++;
+    }   
+  
+  my_strcpy(placehold, src);
+  
+  return dest;                                                                                                  
 }
-  */
+
 int my_isspace(int ch)
 {
   //LOCAL DECLARATIONS                                                                                                                    
@@ -201,30 +143,31 @@ int my_isspace(int ch)
 int my_atoi(const char * str)
 {
   //LOCAL DECLARATIONS                        
-  int length = (int) my_strlen(str);
-  int counter;
+  int negNum = 0;
   int ret = 0;
-  
-  //EXECUTABLE STATEMENTS                                                    
-  for (counter = 0; counter < length - 1; counter++)
+    
+  //EXECUTABLE STATEMENTS
+  while (my_isspace(*str) == 1)
     {
-      //printf("%d\n", str[counter]);
-      if (my_isspace(str[counter]) == 1)
-	{
-	  str++;
-	}  
-    }
-  
-  while (*str >= '0' && *str <= '9')
-    {
-      ret = *str;
-      printf("%d\n", ret);
-      ret *= 10;
-      ret += (*str - '0');
       str++;
     }
-
-
-  return ret;
+  if (*str == '-')
+    {
+      negNum = 1;
+      str++;
+    }
+  while (*str >= '0' && *str <= '9')
+    {
+      ret = (ret * 10) + (*str - '0');
+      str++;
+    }
+  if (negNum == 1)
+    {
+      return -ret; 
+    }
+  else
+    {
+      return ret;
+    }
 }
 

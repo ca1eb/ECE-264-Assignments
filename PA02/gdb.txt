@@ -1,0 +1,69 @@
+Breakpoint 1 at 0x4007c7: file pa02.c, line 14.
+Breakpoint 2 at 0x40065c: file answer02.c, line 99.
+Breakpoint 3 at 0x40050c: file answer02.c, line 8.
+Breakpoint 4 at 0x4006ed: file answer02.c, line 131.
+Breakpoint 5 at 0x400624: file answer02.c, line 82.
+Starting program: /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA02/pa02 
+
+Breakpoint 1, main (argc=1, argv=0x7fffffffe4c8) at pa02.c:14
+14	    printf("Welcome to PA02.\n"
+Continuing.
+
+Breakpoint 3, my_strlen (str=0x400d00 "This has 20 elements") at answer02.c:8
+8	  int charCount = 0;
+$1 = 0x400d00 "This has 20 elements"
+Continuing.
+
+Breakpoint 3, my_strlen (str=0x400d15 "") at answer02.c:8
+8	  int charCount = 0;
+$2 = 63
+Continuing.
+
+Breakpoint 3, my_strlen (str=0x400d16 "foo") at answer02.c:8
+8	  int charCount = 0;
+$3 = 0x400d16 "foo"
+Continuing.
+
+Breakpoint 5, my_strstr (haystack=0x400d00 "This has 20 elements", needle=0x400dbe "World") at answer02.c:82
+82	  int character = (int) needle[0];
+$4 = 0x400dbe "World"
+$5 = 0x400d00 "This has 20 elements"
+Continuing.
+
+Breakpoint 5, my_strstr (haystack=0x400d00 "This has 20 elements", needle=0x400d15 "") at answer02.c:82
+82	  int character = (int) needle[0];
+Continuing.
+
+Breakpoint 5, my_strstr (haystack=0x400d00 "This has 20 elements", needle=0x400e01 "hello") at answer02.c:82
+82	  int character = (int) needle[0];
+Continuing.
+
+Breakpoint 2, my_strcpy (dest=0x7fffffffe390 "", src=0x400d00 "This has 20 elements") at answer02.c:99
+99	  for (counter = 0; src[counter] != '\0'; ++counter)
+Continuing.
+
+Breakpoint 2, my_strcpy (dest=0x7fffffffe390 "This has 20 elements", src=0x400d15 "") at answer02.c:99
+99	  for (counter = 0; src[counter] != '\0'; ++counter)
+Continuing.
+
+Breakpoint 2, my_strcpy (dest=0x7fffffffe390 "", src=0x400d16 "foo") at answer02.c:99
+99	  for (counter = 0; src[counter] != '\0'; ++counter)
+$6 = 0
+$7 = 0x400d16 "foo"
+$8 = 0x7fffffffe390 ""
+Continuing.
+
+Breakpoint 4, my_isspace (ch=12) at answer02.c:131
+131	  if ((ch >= 9 && ch <= 13) || ch == 32)
+Continuing.
+
+Breakpoint 4, my_isspace (ch=97) at answer02.c:131
+131	  if ((ch >= 9 && ch <= 13) || ch == 32)
+$9 = 97
+Continuing.
+
+Breakpoint 4, my_isspace (ch=32) at answer02.c:131
+131	  if ((ch >= 9 && ch <= 13) || ch == 32)
+Continuing.
+
+Program exited normally.
