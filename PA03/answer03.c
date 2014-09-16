@@ -44,20 +44,21 @@ char * * explode(const char * str, const char * delims, int * arrLen)
   
   int arrInd = 0; // this is the next position where we'll create a string
   int last = 0; // 1 + the last index we saw a delimiter. Init to 0.
-  for (ind = 0; ind <= strlen(str); ind++) //POTENTIAL CHANGE TO <=
+  for (ind = 0; ind < strlen(str); ind++) //POTENTIAL CHANGE TO <=
     {
       printf("%c\n",str[ind]);
       if (strchr(delims,str[ind]) != NULL)
 	{
-	  char * tmp = 
-	  memcpy(*strArr,);
+	  char * tmp = malloc(sizeof(char) * (ind + 1));
+	  int bits = ind - last;
+	  memcpy(*strArr,tmp,bits);
 	  *strArr[arrInd] = *tmp;
 	  last = ind + 1;  
 	  arrInd++;
 	}
     }
-  char * end = malloc(sizeof(char) * (strlen(str) - last));
-  *strArr[n] = *end;
+  //char * end = malloc(sizeof(char) * (strlen(str) - last));
+  //*strArr[n] = *end;
   
   *arrLen = n;
 
