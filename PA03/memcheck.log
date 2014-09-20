@@ -1,0 +1,65 @@
+==19781== Memcheck, a memory error detector
+==19781== Copyright (C) 2002-2012, and GNU GPL'd, by Julian Seward et al.
+==19781== Using Valgrind-3.8.1 and LibVEX; rerun with -h for copyright info
+==19781== Command: ./pa03
+==19781== Parent PID: 9400
+==19781== 
+--19781-- 
+--19781-- Valgrind options:
+--19781--    --tool=memcheck
+--19781--    --leak-check=full
+--19781--    --verbose
+--19781--    --log-file=memcheck.log
+--19781-- Contents of /proc/version:
+--19781--   Linux version 2.6.32-431.23.3.el6.x86_64 (mockbuild@x86-027.build.eng.bos.redhat.com) (gcc version 4.4.7 20120313 (Red Hat 4.4.7-4) (GCC) ) #1 SMP Wed Jul 16 06:12:23 EDT 2014
+--19781-- Arch and hwcaps: AMD64, amd64-sse3-cx16
+--19781-- Page sizes: currently 4096, max supported 4096
+--19781-- Valgrind library directory: /usr/lib64/valgrind
+--19781-- Reading syms from /home/shay/a/niemann/ECE264/Solutions/ECE-264-Assignments/PA03/pa03
+--19781-- Reading syms from /usr/lib64/valgrind/memcheck-amd64-linux
+--19781--    object doesn't have a dynamic symbol table
+--19781-- Reading syms from /lib64/ld-2.12.so
+--19781--   Considering /usr/lib/debug/.build-id/57/bf668f99b7f5917b8d55fbb645173c9a644575.debug ..
+--19781--   .. build-id is valid
+--19781-- Scheduler: using generic scheduler lock implementation.
+--19781-- Reading suppressions file: /usr/lib64/valgrind/default.supp
+==19781== embedded gdbserver: reading from /tmp/vgdb-pipe-from-vgdb-to-19781-by-niemann-on-ecegrid-thin3.ecn.purdue.edu
+==19781== embedded gdbserver: writing to   /tmp/vgdb-pipe-to-vgdb-from-19781-by-niemann-on-ecegrid-thin3.ecn.purdue.edu
+==19781== embedded gdbserver: shared mem   /tmp/vgdb-pipe-shared-mem-vgdb-19781-by-niemann-on-ecegrid-thin3.ecn.purdue.edu
+==19781== 
+==19781== TO CONTROL THIS PROCESS USING vgdb (which you probably
+==19781== don't want to do, unless you know exactly what you're doing,
+==19781== or are doing some strange experiment):
+==19781==   /usr/lib64/valgrind/../../bin/vgdb --pid=19781 ...command...
+==19781== 
+==19781== TO DEBUG THIS PROCESS USING GDB: start GDB like this
+==19781==   /path/to/gdb ./pa03
+==19781== and then give GDB the following command
+==19781==   target remote | /usr/lib64/valgrind/../../bin/vgdb --pid=19781
+==19781== --pid is optional if only one valgrind process is running
+==19781== 
+--19781-- REDIR: 0x35eba17530 (strlen) redirected to 0x38049551 (vgPlain_amd64_linux_REDIR_FOR_strlen)
+--19781-- Reading syms from /usr/lib64/valgrind/vgpreload_core-amd64-linux.so
+--19781-- Reading syms from /usr/lib64/valgrind/vgpreload_memcheck-amd64-linux.so
+--19781-- REDIR: 0x35eba173a0 (index) redirected to 0x4a07bf0 (index)
+--19781-- REDIR: 0x35eba17420 (strcmp) redirected to 0x4a08530 (strcmp)
+--19781-- Reading syms from /lib64/libc-2.12.so
+--19781--   Considering /usr/lib/debug/.build-id/07/b5ce35eba864a01b697f5ca117e94b9248064f.debug ..
+--19781--   .. build-id is valid
+--19781-- REDIR: 0x35ebe84cd0 (strcasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--19781-- REDIR: 0x35ebe86f90 (strncasecmp) redirected to 0x480155c (_vgnU_ifunc_wrapper)
+--19781-- REDIR: 0x35ebe82c40 (__GI_strrchr) redirected to 0x4a07a70 (__GI_strrchr)
+--19781-- REDIR: 0x35ebe7b520 (free) redirected to 0x4a06369 (free)
+==19781== 
+==19781== HEAP SUMMARY:
+==19781==     in use at exit: 0 bytes in 0 blocks
+==19781==   total heap usage: 0 allocs, 0 frees, 0 bytes allocated
+==19781== 
+==19781== All heap blocks were freed -- no leaks are possible
+==19781== 
+==19781== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
+--19781-- 
+--19781-- used_suppression:      4 U1004-ARM-_dl_relocate_object
+--19781-- used_suppression:      2 glibc-2.5.x-on-SUSE-10.2-(PPC)-2a
+==19781== 
+==19780== ERROR SUMMARY: 0 errors from 0 contexts (suppressed: 6 from 6)
