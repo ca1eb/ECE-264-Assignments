@@ -32,6 +32,8 @@ int main(int argc, char * * argv)
       if (fopen(argv[ind], "r") == NULL)
 	{
 	  fprintf(stderr, "cat cannot open %s\n", argv[ind]);
+
+	  return EXIT_FAILURE;
 	}
       else if (strcmp(argv[ind],"-"))
 	{
