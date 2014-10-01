@@ -10,11 +10,12 @@ int main(int argc, char * * argv)
   //LOCAL DECLARATIONS
   if (argc > 1)
     {
-      for (ind = 0; ind < argc; ind++)
+      for (ind = 1; ind < argc; ind++)
 	{
-	  printf("%s", argv[ind]);
+	  printf("%s ", argv[ind]);
 	}
     }
-  
+  printf("\n");
+
   return EXIT_SUCCESS;
 }

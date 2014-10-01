@@ -26,7 +26,22 @@ int main(int argc, char * * argv)
 	  return EXIT_SUCCESS;
 	}
     }     
-  
+
+  if (argc < 2)
+    {
+      FILE * inputFile = stdin;
+      while (feof(inputFile) == 0)
+	{
+	  stdinCH = fgetc(inputFile);
+	  if (feof(inputFile) == 0)
+	    {
+	      printf("%c", stdinCH);
+	    }
+	}
+      
+      return EXIT_SUCCESS;
+    }
+
   for (ind = 1; ind < argc; ind++)
     {
       if (strcmp(argv[ind],"-") == 0)
