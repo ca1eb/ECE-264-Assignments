@@ -13,7 +13,7 @@ int main(int argc, char * * argv)
   //EXECUTABLE STATEMENTS
   for (ind = 1; ind < argc; ind++)
     {
-      if (strcmp(argv[ind],"--help"))
+      if (strcmp(argv[ind],"--help") == 0)
 	{
 	  printf("Usage: cat-lite [--help] [FILE]...\n");
 	  printf("With no FILE, or when FILE is -, read standard input.\n\n");
@@ -29,28 +29,35 @@ int main(int argc, char * * argv)
   
   for (ind = 1; ind < argc; ind++)
     {
-      if (fopen(argv[ind], "r") == NULL)
+      if (strcmp(argv[ind],"-") == 0)
+	{
+	  FILE * inputFile = stdin;
+	  while (feof(inputFile) == 0)
+	    {
+	      stdinCH = fgetc(inputFile);
+	      if (feof(inputFile) == 0)
+		{
+		  printf("%c", stdinCH);
+		}
+	    }
+	}
+      else if (fopen(argv[ind], "r") == NULL)
 	{
 	  fprintf(stderr, "cat cannot open %s\n", argv[ind]);
 
 	  return EXIT_FAILURE;
 	}
-      else if (strcmp(argv[ind],"-"))
-	{
-	  FILE * inputFile = stdin;
-	  while (feof(inputFile))
-	    {
-	      stdinCH = fgetc(inputFile);
-	      printf("%c", stdinCH);
-	    }
-	}
       else
 	{
 	  FILE * currentFile = fopen(argv[ind],"r");
-	  while (feof(currentFile))
+	  while (feof(currentFile) == 0)
 	    {
 	      stdoutCH = fgetc(currentFile);
-	      fprintf(stdout, "%c", stdoutCH);
+	      if (feof(currentFile) == 0)
+		{
+		  fprintf(stdout, "%c", stdoutCH);
+		}
+	      //printf("%c",stdoutCH);
 	    }
 	  fclose(currentFile);
 	}
