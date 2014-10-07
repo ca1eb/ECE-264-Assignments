@@ -13,12 +13,12 @@
 #define OESWITCH = 6;
 #define PRIMESWITCH = 7;
 
-void printPart(int *, int, int);
-int numLines(int);
-void partition(int *, int, int, int, int);
+void printPart(int *, int);
+//int numLines(int);
+void partition(int *, int, int, int);
 //void partitionAll(int);
 
-void printPart(int * array, int length, int wSwitch)
+void printPart(int * array, int length)
 {
   //LOCAL DECLARATIONS
   int ind;
@@ -33,7 +33,7 @@ void printPart(int * array, int length, int wSwitch)
 
   return;
 }
-
+/*
 int numLines(int value)
 {
   //LOCAL DECLARATIONS
@@ -48,11 +48,12 @@ int numLines(int value)
 
   return lines;
 }
-
+*/
 void partition(int * array, int ind, int left, int wSwitch)
 {
   //LOCAL DECLARATIONS
   int value;
+
 
   //EXECUTABLE FUNCTIONS
   if (left == 0)				
@@ -61,62 +62,44 @@ void partition(int * array, int ind, int left, int wSwitch)
       
       return;                                            //Code snippet taken from course notes
     }
-  for (value = 1; value <= left; value++)
+
+  if (wSwitch == 1)
     {
-      array[ind] = value;
-      partition(array, ind + 1, left - value);
+      for (value = 1; value <= left; value++)
+	{
+	  array[ind] = value;
+	  partition(array, ind + 1, left - value, 1);
+	}
+    }
+  else if (wSwitch == 5)
+    {
+      for (value = 2; value <= left; value += 2)
+        {
+          array[ind] = value;
+          partition(array, ind + 1, left - value, 5);
+        }
+    }
+  else if (wSwitch == 4)
+    {
+      for (value = 1; value <= left; value += 2)
+	{
+	  array[ind] = value;
+	  partition(array, ind + 1, left - value, 4);
+	}
     }
 
   return;
-}
-/*
-int compareINC(int left, int right)
-{
-  if (left < right)
-    {
-      return TRUE;
-    }
-  
-  return FALSE;
-}
-
-int compareDEC(int left, int right)
-{
-  if (right < left)
-    {
-      return TRUE;
-    }
-  
-  return FALSE;
-}
-
-//int compareODD
-
-//int compareEVEN
-
-//int compareOE
-
-//int comparePRIME
-*/
-int main(int argc, char * * argv)
-{
-  //LOCAL DECLARATIONS
-  //int * array = malloc(sizeof(int) * 8);
-
-  //EXECUTABLE STATEMENTS
-  //partitionAll(4);
-
-  return EXIT_SUCCESS;
 }
 
 void partitionAll(int value)
 {
   //LOCAL DECLARATIONS
-  int lines = numLines(value);
-  int * array = malloc(sizeof(int) * lines);
+  //int lines = numLines(value);
+  int * array = malloc(sizeof(int) * value);
 
   //EXECUTABLE STATEMENTS
-  partition(array, 0, value);
+  partition(array, 0, value, 1);
+  free(array);
 
   return;
 }
@@ -124,12 +107,12 @@ void partitionAll(int value)
 void partitionIncreasing(int value)
 {
   //LOCAL DECLARATIONS                      
-  int lines = numLines(value);
-  int * array = malloc(sizeof(int) * lines);
+  //int lines = numLines(value);
+  int * array = malloc(sizeof(int) * value);
   
   //EXECUTABLE STATEMENTS    
-  
-  partition(array, 0, value);
+  partition(array, 0, value, 2);
+  free(array);
 
   return;
 }
@@ -147,9 +130,11 @@ void partitionDecreasing(int value)
 void partitionOdd(int value)
 {
   //LOCAL DECLARATIONS                                                                                                                    
-  //int ind;                                                                                                                                
+  int * array = malloc(sizeof(int) * value);
 
   //EXECUTABLE STATEMENTS                                                                                                                  
+  partition(array, 0, value, 4);
+  free(array);
 
   return;
 }
@@ -157,9 +142,10 @@ void partitionOdd(int value)
 void partitionEven(int value)
 {
   //LOCAL DECLARATIONS                                                                                                                    
-  //int ind;                                                                                                                              
-
+  int * array = malloc(sizeof(int) * value);                                                                                                                              
   //EXECUTABLE STATEMENTS                                                                                                               
+  partition(array, 0, value, 5);
+  free(array);
 
   return;
 }
@@ -176,10 +162,20 @@ void partitionOddAndEven(int value)
 
 void partitionPrime(int value)
 {
-  //LOCAL DECLARATIONS                                                                                                                 
-  //int ind;                                                                                                                            
+  //LOCAL DECLARATIONS                                                                                                           
 
   //EXECUTABLE STATEMENTS                                                                                                                 
 
   return;
 }
+
+int main(int argc, char * * argv)
+{
+  //partitionAll(5);
+  //printf("DONE\n");
+  //partitionEven(6);
+  //printf("DONE\n");
+  //partitionOdd(5);
+  return EXIT_SUCCESS;
+}
+
