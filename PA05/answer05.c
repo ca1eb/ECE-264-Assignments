@@ -14,9 +14,8 @@
 #define PRIMESWITCH = 7;
 
 void printPart(int *, int);
-//int numLines(int);
 void partition(int *, int, int, int);
-//void partitionAll(int);
+
 
 void printPart(int * array, int length)
 {
@@ -24,8 +23,9 @@ void printPart(int * array, int length)
   int ind;
   
   //EXECUTABLE STATEMENTS
+  printf("= ");
   for (ind = 0; ind < length - 1; ind++)
-    {                                                   //code snippet taken from course notes
+    {                                                       //code snippet taken from course notes
       printf("%d + ", array[ind]);
     }
 
@@ -33,22 +33,7 @@ void printPart(int * array, int length)
 
   return;
 }
-/*
-int numLines(int value)
-{
-  //LOCAL DECLARATIONS
-  int ind;
-  int lines = 1;
 
-  //EXECUTABLE STATEMENTS
-  for (ind = 1; ind < (value - 1); ind++)
-    {
-      lines *= 2;
-    }
-
-  return lines;
-}
-*/
 void partition(int * array, int ind, int left, int wSwitch)
 {
   //LOCAL DECLARATIONS
@@ -87,6 +72,62 @@ void partition(int * array, int ind, int left, int wSwitch)
 	  partition(array, ind + 1, left - value, 4);
 	}
     }
+  else if (wSwitch == 2)
+    {
+      int min = 1;
+      if (ind != 0)
+	{
+	  min = array[ind - 1] + 1;
+	}
+      for (value = min; value <= left; value++)        //NOT DONE INC
+        {
+	  array[ind] = value;
+	  partition(array, ind + 1, left - value, 2);
+	}
+    }
+  else if (wSwitch == 3)
+    {
+      for (value = 1; value <= left; value++)
+	{
+	  int valid = 0;
+	  if (ind == 0)
+	    {
+	      valid = 1;
+	    }
+	  else
+	    {
+	      if (array[ind - 1] > array[ind])
+		{
+		  valid = 1;
+		}
+	    }
+	  if (valid == 1)
+	    {
+	      array[ind] = value;
+	      partition(array, ind + 1, left - value, 3);
+	    } 
+	}
+    }
+  else if (wSwitch == 6)
+    {
+      for (value = 1; value <= left; value++)
+	{
+	  int valid = 0;
+	  if (ind == 0)
+	    {
+	      valid = 1;
+	    }
+	  else 
+	    {
+	      valid = (array[ind - 1] % 2) != (value % 2);
+	    }
+	  if (valid == 1)
+	    {
+	      array[ind] = value;
+	      partition(array, ind + 1, left - value, 6);
+	    }
+	}
+    }
 
   return;
 }
@@ -120,9 +161,11 @@ void partitionIncreasing(int value)
 void partitionDecreasing(int value)
 {
   //LOCAL DECLARATIONS                                                                                                                     
-  //int ind;                                                                                                                             
+  int * array = malloc(sizeof(int) * value);                                                                                                 
 
   //EXECUTABLE STATEMENTS                                                                                                                
+  partition(array, 0, value, 3);
+  free(array);
 
   return;
 }
@@ -152,10 +195,12 @@ void partitionEven(int value)
 
 void partitionOddAndEven(int value)
 {
-  //LOCAL DECLARATIONS                                                                                                                    
-  //int ind;                                                                                                                                
-
+  //LOCAL DECLARATIONS                                                                                                                  
+  int * array = malloc(sizeof(int) * value);
+  
   //EXECUTABLE STATEMENTS                                                                                                                 
+  partition(array, 0, value, 6);
+  free(array);
 
   return;
 }
@@ -168,14 +213,17 @@ void partitionPrime(int value)
 
   return;
 }
-
+/*
 int main(int argc, char * * argv)
 {
-  //partitionAll(5);
-  //printf("DONE\n");
+  partitionDecreasing(6);
+  printf("DONE\n");
+  partitionOddAndEven(6);
+  printf("DONE\n");
   //partitionEven(6);
   //printf("DONE\n");
   //partitionOdd(5);
   return EXIT_SUCCESS;
 }
 
+*/
