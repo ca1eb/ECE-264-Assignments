@@ -15,7 +15,30 @@
 
 void printPart(int *, int);
 void partition(int *, int, int, int);
+int prime(int);
 
+int prime (int value)
+{
+  //LOCAL DECLARATIONS
+  int primeYN = 1;
+  int ind;
+
+  //EXECUTABLE STATEMENTS
+  if (value == 1)
+    {
+      return 0;
+    }
+  
+  for (ind = 2; ind < value; ind++)
+    {
+      if (value % ind == 0)
+	{
+	  primeYN = 0;
+	}
+    }
+      
+  return primeYN;
+}
 
 void printPart(int * array, int length)
 {
@@ -86,27 +109,17 @@ void partition(int * array, int ind, int left, int wSwitch)
 	}
     }
   else if (wSwitch == 3)
-    {
-      for (value = 1; value <= left; value++)
-	{
-	  int valid = 0;
-	  if (ind == 0)
-	    {
-	      valid = 1;
-	    }
-	  else
-	    {
-	      if (array[ind - 1] > array[ind])
-		{
-		  valid = 1;
-		}
-	    }
-	  if (valid == 1)
-	    {
-	      array[ind] = value;
-	      partition(array, ind + 1, left - value, 3);
-	    } 
-	}
+    { 
+      int max = 6;
+      if (ind != 0)
+        {
+          max = array[ind - 1] - 1;
+        }
+      for (value = max; value >= 1; value++)        //NOT DONE INC
+        {
+          array[ind] = value;
+          partition(array, ind + 1, left - value, 3);
+        }
     }
   else if (wSwitch == 6)
     {
@@ -128,7 +141,18 @@ void partition(int * array, int ind, int left, int wSwitch)
 	    }
 	}
     }
-
+  else if (wSwitch == 7)
+    {
+      for (value = 1; value <= left; value++)
+	{
+	  if (prime(value))
+	    {
+	      array[ind] = value;
+	      partition(array, ind + 1, left - value, 7);
+	    }
+	}
+    }
+  
   return;
 }
 
@@ -208,18 +232,36 @@ void partitionOddAndEven(int value)
 void partitionPrime(int value)
 {
   //LOCAL DECLARATIONS                                                                                                           
+  int * array = malloc(sizeof(int) * value);
 
   //EXECUTABLE STATEMENTS                                                                                                                 
+  partition(array, 0, value, 7);
+  free(array);  
 
   return;
 }
 /*
 int main(int argc, char * * argv)
 {
-  partitionDecreasing(6);
+  //  int val;
+  //nt i;
+
+  //for (i = 1; i < 100; i++)
+  //{
+  //  val = prime(i);
+  //  printf("%d = %d\n", i, val);
+  //}
+    
+
+
+  partitionPrime(7);
   printf("DONE\n");
-  partitionOddAndEven(6);
-  printf("DONE\n");
+  //partitionDecreasing(6);
+  //printf("DONE\n");
+  //partitionIncreasing(6);
+  //printf("DONE\n");
+  //partitionOddAndEven(6);
+  //printf("DONE\n");
   //partitionEven(6);
   //printf("DONE\n");
   //partitionOdd(5);
