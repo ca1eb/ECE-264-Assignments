@@ -1,17 +1,8 @@
+
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
 #include <math.h>
-
-#define TRUE = 1;
-#define FALSE = 0;
-#define ALLSWITCH = 1;
-#define INCSWITCH  = 2;
-#define DECSWITCH = 3;
-#define ODDSWITCH = 4;
-#define EVENSWITCH = 5;
-#define OESWITCH = 6;
-#define PRIMESWITCH = 7;
 
 void printPart(int *, int);
 void partition(int *, int, int, int);
@@ -110,12 +101,12 @@ void partition(int * array, int ind, int left, int wSwitch)
     }
   else if (wSwitch == 3)
     { 
-      int max = 6;
+      int max = left;
       if (ind != 0)
         {
           max = array[ind - 1] - 1;
         }
-      for (value = max; value >= 1; value++)        //NOT DONE INC
+      for (value = max; value >=1 ; value--)        //NOT DONE INC
         {
           array[ind] = value;
           partition(array, ind + 1, left - value, 3);
@@ -240,32 +231,3 @@ void partitionPrime(int value)
 
   return;
 }
-/*
-int main(int argc, char * * argv)
-{
-  //  int val;
-  //nt i;
-
-  //for (i = 1; i < 100; i++)
-  //{
-  //  val = prime(i);
-  //  printf("%d = %d\n", i, val);
-  //}
-    
-
-
-  partitionPrime(7);
-  printf("DONE\n");
-  //partitionDecreasing(6);
-  //printf("DONE\n");
-  //partitionIncreasing(6);
-  //printf("DONE\n");
-  //partitionOddAndEven(6);
-  //printf("DONE\n");
-  //partitionEven(6);
-  //printf("DONE\n");
-  //partitionOdd(5);
-  return EXIT_SUCCESS;
-}
-
-*/
