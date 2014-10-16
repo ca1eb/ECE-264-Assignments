@@ -58,24 +58,68 @@ void print_path(int movex, int movey, int steps)
 void traverse (char * * maze, int w, int h, int x, int y, int movex, int movey)
 {
   //LOCAL DECLARATIONS
-  int steps = 0;
+  int steps = 1;
+  int right;
+  int left;
+  int up;
+  int down;
 
   //EXECUTABLE STATEMENTS
   while (maze[x][y] != 'X')
     {
-      steps++;
+      //steps++;
       maze[x][y] = 'x';
-      x += movex;
-      y += movey;
-      //maze[x][y] = 'x';
-      int right = (maze[x][y + 1] == ' ');
-      int left = (maze[x][y - 1] == ' ');
-      int up = (maze[x - 1][y] == ' ');
-      int down = (maze[x + 1][y] == ' ');
-
-      if (!(right || left || up || down))
+      
+      if (x + movex < h && x >= 0)
 	{
-	  print_path(movex,movey,steps);
+	  x += movex;
+	}
+
+      if (y + movey < w && y >= 0)
+	{
+	  y += movey;
+	}
+      
+      //maze[x][y] = 'x';
+      if (y + 1 < w && y + 1 >= 0)
+	{
+	  right = (maze[x][y + 1] == ' ');
+	}
+      else 
+	{
+	  right = 0;
+	}
+      
+      if (y - 1 < w && y - 1 >= 0)
+	{
+	  left = (maze[x][y - 1] == ' ');
+	}
+      else
+	{
+	  left = 0;
+	}
+      
+      if (x - 1 < w && x - 1 >= 0)
+	{
+	  up = (maze[x - 1][y] == ' ');
+	}
+      else 
+	{
+	  up = 0;
+	}
+      
+      if (x + 1 < w && x + 1 >= 0)
+	{
+	  down = (maze[x + 1][y] == ' ');
+	}
+      else 
+	{
+	  down = 0;
+	}
+
+      if (!right && !left && !up && !down)
+	{
+	  //print_path(movex,movey,steps);
 	  print_path(-movex,-movey,steps);
 	  
 	  return;
@@ -97,15 +141,15 @@ void traverse (char * * maze, int w, int h, int x, int y, int movex, int movey)
 
 	  if (up)
 	    {
-	      traverse(maze,w,h,x,y,1,0);
+	      traverse(maze,w,h,x,y,-1,0);
 	    }
 
 	  if (down)
 	    {
-	      traverse(maze,w,h,x,y,-1,0);
+	      traverse(maze,w,h,x,y,1,0);
 	    }
 	  
-	  print_path(-movex,-movey,steps);
+	  //print_path(-movex,-movey,steps);
 	}	  
     }  
   print_path(-movex,-movey,steps);
