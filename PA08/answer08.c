@@ -63,83 +63,111 @@ int List_length(List * list)
   return length;
 }
 
-List * List_traverse(List * head)
+void List_traverse(List * head)
 {
   //LOCAL DECLARATIONS
-  List * ptr = head;
-
+  
   //EXECUTABLE STATEMENTS
-  while (ptr != NULL)
+  while (head != NULL)
     {
-      if (ptr->next == NULL)
+      if (head->next == NULL)
 	{
-	  return ptr;
+	  return;
 	}
     }
 
-  return ptr;
-}
-
-void insert(List * dest, List * src)
-{
-  //LOCAL DECLARATIONS
-  
-  //EXECUTABLE STATEMENTS
-  dest = List_traverse(dest);
-
-  while (src != NULL)
-    {
-      dest->next = src;
-      src = src->next;
-    }
-  
-  dest->next = NULL;
-
   return;
 }
+
+List * concat(List * dest, List * src)
+{
+  //LOCAL DECLARATIONS
+
+  //EXECUTABLE STATEMENTS
+  List * tmp = dest;
+
+  if (dest == NULL)
+    {
+      return src;
+    }
+
+  while (dest->next != NULL)
+    {
+      dest = dest->next;
+    }
+
+  dest->next = src;
+
+  return tmp;
+}
+
 List * List_merge(List * lhs, List * rhs, int (*compar)(const char *, const char*))
 {
   //LOCAL DECLARATIONS
-  //int bigger = compar(lhs->str, rhs->str);
   List * new = NULL;
   //new->next = NULL;
-  //List * tmp = malloc(sizeof(List));
-  //new->next = NULL;
-
+  List * tmp = NULL;
+  
   //EXECUTABLE STATEMENTS
-  while (lhs != NULL && rhs != NULL)
+   while (lhs != NULL && rhs != NULL)
     {
       int bigger = compar(lhs->str,rhs->str);
 
       if (bigger <= 0)
 	{
-	  tmp = lhs;
+ 	  tmp = lhs;
 	  lhs = lhs->next;
 	  tmp->next = NULL;
-	  insert(new,tmp);
+	  new = concat(new,tmp);
 	}
       else
 	{
 	  tmp = rhs;
-	  tmp->next = NULL;
 	  rhs = rhs->next;
-	  insert(new,tmp);
+	  tmp->next = NULL;
+	  new = concat(new,tmp);
 	}
     }
 
   if (lhs != NULL)
     {
-      insert(new,lhs);
+      new = concat(new,lhs);
     }
   else if (rhs != NULL)
     {
-      insert(new,rhs);
+      new = concat(new,rhs);
     }
-
+  
   return new;
 }
 
 List * List_sort(List * list, int (*compar)(const char *, const char*))
 {
-  return list;
+  //LOCAL DECLARATIONS
+  int ind;
+  int len = List_length(list);
+  List * tmp = list;
+  List * left = list;
+  List * right = NULL;
+  
+  //EXECUTABLE STATEMENTS
+  if (len < 2)
+    {
+      return list;
+    }
+  
+  for (ind = 1; ind < len/2; ind++)
+    {
+      tmp = tmp->next;
+    }
+  
+  right = tmp->next;
+  tmp->next = NULL;
+
+  left = List_sort(left, compar);
+  right = List_sort(right, compar);
+  
+  List * sorted = List_merge(left, right, compar);
+  
+  return sorted;
 }
