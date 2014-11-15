@@ -1,20 +1,108 @@
 #include<stdio.h>
 #include<stdlib.h>
 #include<string.h>
-#include<inttypes.h>
 #include "answer10.h"
+/*
+typedef struct {
+  struct Location * store;
+  locationList * next;
+} locationList;
 
-typedef struct YelpDataBST {
-  int c;
-} yd;
+typedef struct reviewOffset {
+  int fileOff;
+  int busID;
+  
+} revOff;
+*/
+
+typedef struct TreeNode {
+  struct TreeNode * right;
+  struct TreeNode * left;
+  struct Business * bus;
+  //char * name;
+} TN;
+
+struct YelpDataBST {
+  FILE * revFile;
+  FILE * busFile;
+  struct TreeNode * root;
+}; 
+
 /* You define this struct in your answerXX.c file. There are different ways
 * you might choose to structure it. This object is probably NOT the root
 * node of the tree, although it might be an attribute of this object.
 */
+/*
+struct Location * create_locList(char * name, char * address, char * city, char * state, char * zip, int id, long offset)
+{
+  struct Location * location = malloc(sizeof(struct Location));
+  location->name = name;
+  location->address = address;
+  location->city = city;
+  location->state = state;
+  location->zip_code = zip;
+  //location->busID = id;
+  location->next = NULL;
+
+  return location;
+}
+
+void print_locListing(struct Location * list)
+{
+  printf("%s\n", list->name);
+  printf("%d\n", list->busID);
+  printf("%s\n", list->address);
+  printf("%s\n", list->city);
+  printf("%s\n", list->state);
+  printf("%s\n", list->zip);
+
+  return;
+}
+*/
+
+TN * tree_insert(TN * node, TN * root)
+{
+  if (node == NULL)
+    {
+      return root;
+    }
+
+  if (root == NULL)
+    {
+      return node;
+    }
+  else 
+    {
+      if (strcmp((node->bus)->name,(root->bus)->name) > 0)
+	{
+	  if (root->right == NULL)
+	    {
+	      root->right = node;
+	    }
+	  else 
+	    {
+	      tree_insert(node,root->right);
+	    }
+	}
+      else 
+	{
+          if (root->left == NULL)
+            {
+              root->left = node;
+            }
+          else
+            {
+              tree_insert(node,root->left);
+            }
+        }
+    }
+  
+  return root;
+}
 
 struct YelpDataBST* create_business_bst(const char* businesses_path, const char* reviews_path)
 {
-  yd * var = NULL;
+  struct YelpDataBST * var = NULL;
 
   return var; 
 }
@@ -75,3 +163,24 @@ void destroy_business_result(struct Business* b)
 }
 /* Deallocate all heap memory tied to an object returned
 * by get_business_reviews(..). */
+
+int main (int argc, char * * argv)
+{
+  //LOCAL DECLARATIONS                                                                                                                          
+  /*char * name = "GE Aviation";
+  char * address = "17498 Dickey Road";
+  char * city = "West Lafayette";
+  char * state = "Michigan";
+  char * zip = "62056";
+  int id = 1000;
+  long rev = 101;*/
+
+  //EXECUTABLE STATEMENTS                                                                                                                       
+  //loc * list = create_locListing(name,address,city,state,zip,id,rev);
+  
+  //print_locList(list);
+  //printf("%p\n", list->next);
+
+  return EXIT_SUCCESS;
+}
+
