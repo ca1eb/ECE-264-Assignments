@@ -2,24 +2,27 @@
 #include<stdlib.h>
 #include<string.h>
 #include "answer10.h"
-/*
-typedef struct {
-  struct Location * store;
-  locationList * next;
-} locationList;
 
-typedef struct reviewOffset {
-  int fileOff;
+typedef struct locList {
+  struct locList * next;
+  char * name;
+  char * address;
+  char * city;
+  char * state;
+  char * zip;
   int busID;
-  
-} revOff;
-*/
+  struct rList * revArr;
+} lList;
+
+typedef struct revList {
+  int numLines;
+  long fptr;
+} rList;
 
 typedef struct TreeNode {
   struct TreeNode * right;
   struct TreeNode * left;
-  struct Business * bus;
-  //char * name;
+  struct locList * bus;
 } TN;
 
 struct YelpDataBST {
@@ -32,22 +35,33 @@ struct YelpDataBST {
 * you might choose to structure it. This object is probably NOT the root
 * node of the tree, although it might be an attribute of this object.
 */
-/*
-struct Location * create_locList(char * name, char * address, char * city, char * state, char * zip, int id, long offset)
+
+rList * create_revList(int numLines, long fptr)
 {
-  struct Location * location = malloc(sizeof(struct Location));
-  location->name = name;
-  location->address = address;
-  location->city = city;
-  location->state = state;
-  location->zip_code = zip;
-  //location->busID = id;
+  rList * list = malloc(sizeof(rList));
+  list->numLines = numLines;
+  list->fptr = fptr;
+
+  return list;
+}
+
+lList * create_locList(char * name, char * address, char * city, char * state, char * zip, char * id)
+{
+  lList * location = malloc(sizeof(lList));
+  location->name = strdup(name);
+  location->address = strdup(address);
+  location->city = strdup(city);
+  location->state = strdup(state);
+  location->zip = strdup(zip);
+  location->busID = atoi(id);
+  location->revArr = NULL;
+  //location->revArr = reviews;
   location->next = NULL;
 
   return location;
 }
 
-void print_locListing(struct Location * list)
+void print_locListing(lList * list)
 {
   printf("%s\n", list->name);
   printf("%d\n", list->busID);
@@ -55,10 +69,51 @@ void print_locListing(struct Location * list)
   printf("%s\n", list->city);
   printf("%s\n", list->state);
   printf("%s\n", list->zip);
+  //printf("%s\n", list->rev
 
   return;
 }
-*/
+
+char * * explode(const char * str, const char * delims, int * arrLen)
+{
+  int n = 0;
+  int ind;
+  int counter;
+  int arrInd = 0;
+
+  for (ind = 0; ind < strlen(str); ind++)
+    {
+      if (strchr(delims,str[ind]) != NULL)
+        {
+          n++;
+        }
+    }
+ 
+  *arrLen = n + 1;  
+  
+  int last = 0;
+  char * * arr = malloc(sizeof(char*) * (*arrLen));
+  
+  for (counter = 0; counter < strlen(str); counter++)
+    {
+      if (strchr(delims,str[counter]) != NULL)
+	{
+	  arr[arrInd] = malloc(sizeof(char) * (counter - last + 1));
+	  arr[arrInd][0] = '\0';
+	  memcpy(arr[arrInd],str + last, counter - last);
+	  arr[arrInd][counter - last] = '\0';
+	  last = counter + 1;
+	  arrInd++;
+	}
+    }
+  
+  arr[arrInd] = malloc(sizeof(char) * (counter - last + 1));
+  arr[arrInd][0] = '\0';
+  memcpy(arr[arrInd],str + last, counter - last);
+  arr[arrInd][counter - last] = '\0';
+
+  return arr;
+}  
 
 TN * tree_insert(TN * node, TN * root)
 {
@@ -97,6 +152,60 @@ TN * tree_insert(TN * node, TN * root)
         }
     }
   
+  return root;
+}
+TN * create_node(lList * bus)
+{
+  TN * node = NULL;
+  node = malloc(sizeof(TN));
+  node->right = NULL;
+  node->left = NULL;
+  node->bus = bus;
+
+  return node;
+}
+
+TN * create_tree(char * filename)
+{
+  FILE * fptr = fopen(filename, "r");
+  TN * node = NULL;
+  TN * root = NULL;
+  //lList * head = NULL;
+  lList * list = NULL;
+  char * str = malloc(sizeof(char) * 2048);
+  char * * attributes = NULL;
+  int tmp = -1;
+
+  if (fptr == NULL)
+    {
+      free(str);
+      return NULL;
+    }
+
+  int arrLen = 0;
+  
+  while (fgets(str, 2048, fptr) != NULL)
+    {
+      attributes = explode(str, "\t", &arrLen);
+      list = create_locList(attributes[1], attributes[2], attributes[3], attributes[4], attributes[5], attributes[0]);
+      tmp = list->busID;
+
+      while (list->busID == tmp)
+	{
+	  fgets(str,2048,fptr);
+	  attributes = explode(str, "\t", &arrLen);
+	  list->next = create_locList(attributes[1], attributes[2], attributes[3], attributes[4], attributes[5], attributes[0]);
+	}
+
+      node = create_node(list);
+      root = tree_insert(node, root);
+      
+      free(attributes);
+    }
+  
+  fclose(fptr);
+  free(str);
+
   return root;
 }
 
@@ -163,24 +272,4 @@ void destroy_business_result(struct Business* b)
 }
 /* Deallocate all heap memory tied to an object returned
 * by get_business_reviews(..). */
-
-int main (int argc, char * * argv)
-{
-  //LOCAL DECLARATIONS                                                                                                                          
-  /*char * name = "GE Aviation";
-  char * address = "17498 Dickey Road";
-  char * city = "West Lafayette";
-  char * state = "Michigan";
-  char * zip = "62056";
-  int id = 1000;
-  long rev = 101;*/
-
-  //EXECUTABLE STATEMENTS                                                                                                                       
-  //loc * list = create_locListing(name,address,city,state,zip,id,rev);
-  
-  //print_locList(list);
-  //printf("%p\n", list->next);
-
-  return EXIT_SUCCESS;
-}
 
