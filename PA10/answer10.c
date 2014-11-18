@@ -3,6 +3,8 @@
 #include<string.h>
 #include "answer10.h"
 
+#define BUFLEN 2048
+
 typedef struct locList {
   struct locList * next;
   char * name;
@@ -47,9 +49,13 @@ rList * create_revList(int numLines, long fptr)
 
 lList * create_locList(char * name, char * address, char * city, char * state, char * zip, char * id)
 {
+  //printf("%s\n", name);
   lList * location = malloc(sizeof(lList));
+  //printf("memory allocated\n");
   location->name = strdup(name);
+  //printf("name copied\n");
   location->address = strdup(address);
+  //printf("address copied");
   location->city = strdup(city);
   location->state = strdup(state);
   location->zip = strdup(zip);
@@ -73,7 +79,6 @@ void print_locListing(lList * list)
 
   return;
 }
-
 char * * explode(const char * str, const char * delims, int * arrLen)
 {
   int n = 0;
@@ -113,7 +118,7 @@ char * * explode(const char * str, const char * delims, int * arrLen)
   arr[arrInd][counter - last] = '\0';
 
   return arr;
-}  
+}
 
 TN * tree_insert(TN * node, TN * root)
 {
@@ -139,7 +144,7 @@ TN * tree_insert(TN * node, TN * root)
 	      tree_insert(node,root->right);
 	    }
 	}
-      else 
+      else if (strcmp((node->bus)->name,(root->bus)->name) < 0)
 	{
           if (root->left == NULL)
             {
@@ -150,6 +155,10 @@ TN * tree_insert(TN * node, TN * root)
               tree_insert(node,root->left);
             }
         }
+      //else
+      //{
+      //  list     WORKING ON WHAT TO DO WITH LIST WHEN THE NODE NAME IS THE SAME 
+	
     }
   
   return root;
@@ -172,32 +181,39 @@ TN * create_tree(char * filename)
   TN * root = NULL;
   //lList * head = NULL;
   lList * list = NULL;
-  char * str = malloc(sizeof(char) * 2048);
+  char * str = malloc(sizeof(char) * BUFLEN);
   char * * attributes = NULL;
-  int tmp = -1;
+  //char * tmp = malloc(sizeof(char) * 100);
 
   if (fptr == NULL)
     {
+      printf("fptr is NULL\n");
       free(str);
       return NULL;
     }
 
   int arrLen = 0;
   
-  while (fgets(str, 2048, fptr) != NULL)
+  while (fgets(str, BUFLEN, fptr) != NULL)
     {
       attributes = explode(str, "\t", &arrLen);
-      list = create_locList(attributes[1], attributes[2], attributes[3], attributes[4], attributes[5], attributes[0]);
-      tmp = list->busID;
-
-      while (list->busID == tmp)
+      //list = create_locList(attributes[1], attributes[2], attributes[3], attributes[4], attributes[5], attributes[0]);
+      //print_locListing(list);
+      //tmp = list->name;
+      
+      
+      /*while (!strcmp(list->name,name)
 	{
-	  fgets(str,2048,fptr);
+	  //printf("while #2\n");
+	  fgets(str,BUFLEN,fptr);
 	  attributes = explode(str, "\t", &arrLen);
 	  list->next = create_locList(attributes[1], attributes[2], attributes[3], attributes[4], attributes[5], attributes[0]);
-	}
-
+	  list = list->next;
+	  }*/
+      
+      //printf("createing soon\n");
       node = create_node(list);
+      //printf("node created\n");
       root = tree_insert(node, root);
       
       free(attributes);
