@@ -34,6 +34,14 @@ void HuffNode_destroy(HuffNode * tree)
   return;
 }
 
+StackNode * StackNode_create(HuffNode * tree)
+{
+  StackNode * node = malloc(sizeof(StackNode));
+  node->tree = tree;
+  node->next = NULL;
+
+  return node;
+}
 
 /**
 * Returns a pointer to a new empty stack struct
@@ -100,10 +108,13 @@ int Stack_isEmpty(Stack * stack)
 HuffNode * Stack_popFront(Stack * stack)
 {
   HuffNode * node = stack->head->tree;
+  //printf("%d\n", node->value);
   StackNode * tmp = stack->head;
-  tmp->next = NULL;
   stack->head = stack->head->next;
-  Head_destroy(tmp);
+  tmp->next = NULL;
+  free(tmp);
+  //tmp->next = NULL;
+  //Head_destroy(tmp);
 
   return node;
 }
@@ -117,10 +128,10 @@ HuffNode * Stack_popFront(Stack * stack)
 */
 void Stack_pushFront(Stack * stack, HuffNode * tree)
 {
-  StackNode * new = malloc(sizeof(StackNode));
-  new->tree = tree;
-  new->next = stack->head;
-  
+  StackNode * node = StackNode_create(tree);
+  node->next = stack->head;
+  stack->head = node;
+
   return;
 }
 
@@ -135,6 +146,16 @@ void Stack_pushFront(Stack * stack, HuffNode * tree)
 */
 void Stack_popPopCombinePush(Stack * stack)
 {
+  HuffNode * tree1 = Stack_popFront(stack);
+  HuffNode * tree2 = Stack_popFront(stack);
+  
+  HuffNode * root = HuffNode_create(tree1->value + tree2->value);
+
+  root->right = tree1;
+  root->left = tree2;
+
+  Stack_pushFront(stack, root);
+
   return;
 }
 
@@ -144,9 +165,28 @@ void Stack_popPopCombinePush(Stack * stack)
 */
 HuffNode * HuffTree_readTextHeader(FILE * fp)
 {
-  HuffNode * new = NULL;
+  /*Stack * stack = Stack_create();
+  HuffNode * tree;
+  char * c;
+  
+  while (fgetc(fp) != EOF)
+    {
+      if (c == '1')
+	{
+	  c = fgetc(c, 1, fp);
+	  HuffNode * tmpHuff = HuffNode_create(c);
+	  Stack_pushFront(stack, tmpHuff); 
+	}
+    }
 
-  return new;
+  while (Stack_isEmpty(stack))
+    {
+      Stack_popPopCombinePush(stack);
+    }
+
+    return stack->head->tree;*/
+
+  return NULL;
 }
 
 /**
