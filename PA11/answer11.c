@@ -184,15 +184,16 @@ HuffNode * HuffTree_readTextHeader(FILE * fp)
 		{
 		  Stack_popPopCombinePush(stack);
 		}
-	    }
-	  else
-	    {
-	      return NULL;
+	      else 
+		{
+		  break;
+		}
 	    }
 	}
 
       c = fgetc(fp);
     }
+  
 
   HuffNode * root = Stack_popFront(stack);
   Stack_destroy(stack);
@@ -213,7 +214,7 @@ int readBit(FILE * fp, unsigned char * bit, unsigned char * whichbit, unsigned c
       return -1;
     }
   
-  unsigned char temp = (*curbyte) >> (8 - (*whichbit));
+  unsigned char temp = (*curbyte) >> (7 - (*whichbit));
   temp = temp & 0X01;
   *whichbit = ((*whichbit) + 1) % 8;
   *bit = temp;
@@ -233,7 +234,7 @@ HuffNode * HuffTree_readBinaryHeader(FILE * fp)
   unsigned char whichbit = 0;
   unsigned char curbyte = 0;
   unsigned char onebit = 0;
-  // StackNode * head = NULL;
+  //Stack * stack = Stack_create();
 
   while (done == 0)
     {
@@ -251,14 +252,18 @@ HuffNode * HuffTree_readBinaryHeader(FILE * fp)
 	      value |= onebit;
 	    }
 	  HuffNode * tn = HuffNode_create(value);
-	  // StackNode * sn = StackNode_create(tn);
 	  Stack_pushFront(stack, tn);
 	}
       else
 	{
-	  if (!Stack_isEmpty(stack))
+	  if (stack == NULL)
 	    {
-	      return NULL;
+	      printf("Error! Stack should not be NULL\n");
+	    }
+	  
+	  if (stack->head->next == NULL)
+	    {
+	      done = 1;
 	    }
 	  else
 	    {
