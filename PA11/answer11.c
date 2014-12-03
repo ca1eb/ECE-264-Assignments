@@ -165,28 +165,60 @@ void Stack_popPopCombinePush(Stack * stack)
 */
 HuffNode * HuffTree_readTextHeader(FILE * fp)
 {
-  /*Stack * stack = Stack_create();
-  HuffNode * tree;
-  char * c;
+  Stack * stack = Stack_create();
+  int c = fgetc(fp);
   
-  while (fgetc(fp) != EOF)
+  while (c != EOF)
     {
       if (c == '1')
 	{
-	  c = fgetc(c, 1, fp);
+	  c = fgetc(fp);
 	  HuffNode * tmpHuff = HuffNode_create(c);
 	  Stack_pushFront(stack, tmpHuff); 
 	}
+      else if (c == '0')
+	{
+	  if (Stack_isEmpty(stack))
+	    {
+	      if (stack->head->next != NULL)
+		{
+		  Stack_popPopCombinePush(stack);
+		}
+	    }
+	  else
+	    {
+	      return NULL;
+	    }
+	}
+
+      c = fgetc(fp);
     }
 
-  while (Stack_isEmpty(stack))
+  HuffNode * root = Stack_popFront(stack);
+  Stack_destroy(stack);
+
+  return root;
+}
+
+int readBit(FILE * fp, unsigned char * bit, unsigned char * whichbit, unsigned char * curbyte)
+{
+  int ret = 1;
+  if ((*whichbit) == 0)
     {
-      Stack_popPopCombinePush(stack);
+      ret = fread(curbyte, sizeof(unsigned char), 1, fp);
     }
-
-    return stack->head->tree;*/
-
-  return NULL;
+  
+  if (ret != 1)
+    {
+      return -1;
+    }
+  
+  unsigned char temp = (*curbyte) >> (8 - (*whichbit));
+  temp = temp & 0X01;
+  *whichbit = ((*whichbit) + 1) % 8;
+  *bit = temp;
+  
+  return 1;
 }
 
 /**
@@ -196,7 +228,48 @@ HuffNode * HuffTree_readTextHeader(FILE * fp)
 */
 HuffNode * HuffTree_readBinaryHeader(FILE * fp)
 {
-  HuffNode * new = NULL;
+  Stack * stack = Stack_create();
+  int done = 0;
+  unsigned char whichbit = 0;
+  unsigned char curbyte = 0;
+  unsigned char onebit = 0;
+  // StackNode * head = NULL;
 
-  return new;
+  while (done == 0)
+    {
+      readBit(fp, &onebit, &whichbit, &curbyte);
+      
+      if (onebit == 1)
+	{
+	  int bitcount;
+	  unsigned char value = 0;
+
+	  for (bitcount = 0; bitcount < 8; bitcount++)
+	    {
+	      value <<= 1;
+	      readBit(fp, &onebit, &whichbit, &curbyte);
+	      value |= onebit;
+	    }
+	  HuffNode * tn = HuffNode_create(value);
+	  // StackNode * sn = StackNode_create(tn);
+	  Stack_pushFront(stack, tn);
+	}
+      else
+	{
+	  if (!Stack_isEmpty(stack))
+	    {
+	      return NULL;
+	    }
+	  else
+	    {
+	      Stack_popPopCombinePush(stack);
+	    }
+	}
+
+    }
+
+  HuffNode * root = Stack_popFront(stack);
+  Stack_destroy(stack);
+
+  return root;
 }
