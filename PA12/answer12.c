@@ -2,7 +2,15 @@
 #include<stdlib.h>
 #include<string.h>
 #include<pthread.h>
+#include<math.h>
 #include"answer12.h"
+
+typedef struct {
+  int start;
+  int stop;
+  int prime;
+  uint128 value;
+} Prime;
 
 int my_isspace(int ch)
 {
@@ -120,6 +128,36 @@ char * u128ToString(uint128 value)
   return str;
 }
 
+void * primalityTest(void * structure) 
+{
+  Prime * prime = (Prime *) structure;
+
+  if (prime->value % 2 == 0 || prime->value == 1)
+    {
+      prime->prime = 0;
+      return NULL;
+    }
+
+  if (prime->value == 2 || prime->value == 3)
+    {
+      prime->prime = 1;
+      return NULL;
+    }
+
+  //uint128 max = floor(sqrt(prime->value));
+  uint128 i;
+  for (i = prime->start; i <= prime->stop; i += 2) 
+    {
+      if (prime->value % i == 0) 
+	{
+	  prime->prime = 0;
+	  return NULL;
+	}
+    }
+
+  return NULL;
+}
+
 /**
  * Test is 'value' is prime.
  * 'n_threads' is the number of threads to create to complete this computation.
@@ -132,7 +170,29 @@ char * u128ToString(uint128 value)
 
 int primalityTestParallel(uint128 value, int n_threads)
 {
-  int nume = 10;
+  int max = floor(sqrt(value));
+  int tot = 0;
+  int ind;
+  int numInt = 0;
+  //Prime * temp = malloc(sizeof(Prime));
+  void * voidP = temp;
 
-  return nume;
+  pthread_t * threads = malloc(sizeof(pthread_t) * n_threads);
+
+  for (ind = 3; ind <= max; ind += 2)
+    {
+      tot++;
+    }
+
+  numInt = tot / n_threads;
+
+  for (ind = 0; ind < n_threads; ind ++)
+    {
+      pthread_create(threads, NULL, primalityTest, voidP);
+      threads++;
+    }  
+  
+  pthread_join(threads);
+  
+  return ;
 }
