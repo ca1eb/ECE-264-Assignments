@@ -6,9 +6,9 @@
 #include"answer12.h"
 
 typedef struct {
-  int start;
-  int stop;
-  int prime;
+  uint128 start;
+  uint128 stop;
+  int * prime;
   uint128 value;
 } Prime;
 
@@ -132,30 +132,34 @@ void * primalityTest(void * structure)
 {
   Prime * prime = (Prime *) structure;
 
-  if (prime->value % 2 == 0 || prime->value == 1)
-    {
-      prime->prime = 0;
-      return NULL;
-    }
-
-  if (prime->value == 2 || prime->value == 3)
-    {
-      prime->prime = 1;
-      return NULL;
-    }
-
   //uint128 max = floor(sqrt(prime->value));
   uint128 i;
+   
+  if (prime->start < 3)
+    {
+      prime->start = 3;
+    }
+
+  if (prime->start % 2 == 0)
+    {
+      prime->start = prime->start + 1;
+     
+    }
+  
   for (i = prime->start; i <= prime->stop; i += 2) 
     {
       if (prime->value % i == 0) 
 	{
-	  prime->prime = 0;
-	  return NULL;
+	  *(prime->prime) = 0;
+	  pthread_exit(0);
+	}
+      if (*(prime->prime) == 0)
+	{
+	  pthread_exit(0);
 	}
     }
 
-  return NULL;
+  pthread_exit(0);
 }
 
 /**
@@ -170,29 +174,52 @@ void * primalityTest(void * structure)
 
 int primalityTestParallel(uint128 value, int n_threads)
 {
-  int max = floor(sqrt(value));
-  int tot = 0;
+  uint128 max = floor(sqrt(value));
+  uint128 piece = ((uint128) max + 1 + (uint128) n_threads) / (uint128) n_threads;
   int ind;
-  int numInt = 0;
-  //Prime * temp = malloc(sizeof(Prime));
-  void * voidP = temp;
+  int isPrime = 1;
+  Prime * temp = malloc(sizeof(Prime) * n_threads);
+
+  if (value == 2 || value == 3)
+    {
+      free(temp);
+      return TRUE;
+    }
+
+  if (value % 2 == 0 || value == 1)
+    {
+      free(temp);
+      return FALSE;
+    }
 
   pthread_t * threads = malloc(sizeof(pthread_t) * n_threads);
 
-  for (ind = 3; ind <= max; ind += 2)
+  for (ind = 0; ind < n_threads; ind++)
     {
-      tot++;
-    }
-
-  numInt = tot / n_threads;
+      temp[ind].start = ind * piece;
+      temp[ind].stop = (ind + 1) * piece;
+      temp[ind].prime = &isPrime;
+      temp[ind].value = value;
+    } 
 
   for (ind = 0; ind < n_threads; ind ++)
     {
-      pthread_create(threads, NULL, primalityTest, voidP);
-      threads++;
+      pthread_create(&threads[ind], NULL, primalityTest, &temp[ind]);
+      //threads++;
     }  
   
-  pthread_join(threads);
-  
-  return ;
+  for (ind = 0; ind < n_threads; ind++)
+    {
+      pthread_join(threads[ind], 0);
+    }
+
+  free(temp);
+  free(threads);
+
+  if (isPrime == 0)
+    {
+      return FALSE;
+    }
+
+  return TRUE;
 }
